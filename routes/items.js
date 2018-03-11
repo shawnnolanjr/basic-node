@@ -9,7 +9,6 @@ let results = [];
 const findDocuments = function(db, callback) {
 	const collection = db.collection('inventory');
 	collection.find({}).toArray(function(err, docs) {
-		console.log("Found the following records");
 		callback(docs);
 	});
 };
@@ -22,10 +21,9 @@ MongoClient.connect(url, function(err, db) {
 	});
 });
 
-/* GET users listing. */
+/* GET items. */
 router.get('/', function (req, res, next) {
-	console.log('results', results);
-	res.render('users', {content: 'respond with a resource', results: results});
+	res.render('items', {content: 'respond with a resource', results: results});
 });
 
 module.exports = router;

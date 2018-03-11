@@ -1,13 +1,7 @@
-<html>
-<head>
-	<title>Dashboard</title>
-</head>
-<body>
-<h1><%= message %></h1>
+<%- include header.ejs %>
 <h2><%= error.status %></h2>
 <p>there was a problem.</p>
 <pre>
 	<%= error.stack %>
 </pre>
-</body>
-</html>
+<%- include footer.ejs %>

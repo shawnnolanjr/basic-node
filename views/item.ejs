@@ -1,0 +1,6 @@
+<%- include header.ejs %>
+<h1>The item</h1>
+<% if(result) { %>
+	<%= (result.item) ? result.item : result %>
+<% } %>
+<%- include footer.ejs %>
