@@ -7,11 +7,11 @@ let expect = chai.expect;
 let dbConfig = require('../../db.config');
 let uri = dbConfig.mongoConfigs.db.uri;
 // Create a new schema that accepts a 'name' object.
-const testInventory = require('../../schemas/itemSchema');
-//Create a new collection called 'item'
-const item = mongoose.model('item', testInventory);
+const ItemSchema = require('../../schemas/itemSchema');
+//Create a new collection called 'ItemModel'
+const ItemModel = mongoose.model('Item', ItemSchema);
 
-describe('Test item model', function() {
+describe('Test Item Schema', function() {
 	//Before starting the test, create a sandboxed database connection
 	//Once a connection is established invoke done()
 	before(function (done) {
@@ -23,10 +23,10 @@ describe('Test item model', function() {
 		});
 	});
 	
-	describe('test item actions', function() {
+	describe('Schema - Item actions', function() {
 		//Save object with required params
-		it('Save new item to db', function(done) {
-			let testItem = item({
+		it('Should save Item to DB', function(done) {
+			let testItem = ItemModel({
 				item: 'journal',
 				qty: 25,
 				status: 'A',
@@ -39,17 +39,18 @@ describe('Test item model', function() {
 			testItem.save(done);
 		});
 		
-		it('Should NOT save to db with incorrect data and params', function(done) {
+		it('Should NOT save Item to DB', function(done) {
 			//Attempt to save with wrong info. An error should trigger
-			let wrongSave = item({ notName: 'Ryder' });
+			let wrongSave = ItemModel({ notName: 'Ryder' });
 			wrongSave.save(err => {
 				if(err) { return done(); }
 				throw new Error('Should generate error!');
 			});
 		});
 		
-		it('Should get find item with param', function(done) {
-			item.find({ item: 'journal'}, (err, resp) => {
+		// @note: might not need this test in here.
+		it('Should find Item from DB', function(done) {
+			ItemModel.find({ item: 'journal'}, (err, resp) => {
 				if(err) {throw err;}
 				if(resp.length === 0) {throw new Error('No data!');}
 				setTimeout(function(){

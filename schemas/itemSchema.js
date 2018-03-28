@@ -2,9 +2,9 @@
 
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-require('../app');
+// require('../app');
 
-const item = new Schema({
+const ItemSchema = new Schema({
 	item: {
 		type: String,
 		required: true
@@ -27,4 +27,4 @@ const item = new Schema({
 	}
 });
 
-module.exports = item;
+module.exports = ItemSchema;
