@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
-		"test": "mocha \"./models/**/*-test.js\""
+		"test": "mocha ./models/**/*-test.js ./schemas/**/*-test.js"
 	},
 	"dependencies": {
 		"consolidate": "^0.15.0",

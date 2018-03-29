@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 require('../../app');
 let mongoose = require('mongoose');

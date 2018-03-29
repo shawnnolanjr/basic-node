@@ -24,6 +24,15 @@ class Item {
 			});
 		});
 	};
+	static findDocumentByItem(val, callback) {
+		this.mongoConnect(function(err, collection){
+			if (err) throw err;
+			collection.findOne({item: val}, function(err, docs){
+				if(err) throw err;
+				callback(err, docs);
+			});
+		});
+	};
 }
 
 module.exports = Item;
