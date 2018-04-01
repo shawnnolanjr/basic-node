@@ -1,28 +1,29 @@
 {
-	"name": "basic",
-	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"start": "node ./bin/www",
-		"test": "mocha ./models/**/*-test.js ./schemas/**/*-test.js"
-	},
-	"dependencies": {
-		"consolidate": "^0.15.0",
-		"cookie-parser": "~1.4.3",
-		"debug": "~2.6.9",
-		"ejs": "^2.5.7",
-		"express": "~4.15.5",
-		"jade": "~1.11.0",
-		"mongodb": "^3.0.3",
-		"mongoose": "^5.0.9",
-		"morgan": "~1.9.0",
-		"restify": "^6.3.4",
-		"restify-plugins": "^1.6.0",
-		"serve-favicon": "~2.4.5",
-		"swig": "^1.4.2"
-	},
-	"devDependencies": {
-		"chai": "^4.1.2",
-		"mocha": "^5.0.2"
-	}
+  "name": "basic",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "mocha ./models/**/*-test.js ./schemas/**/*-test.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "consolidate": "^0.15.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "^2.5.7",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "mongodb": "^3.0.3",
+    "mongoose": "^5.0.9",
+    "morgan": "~1.9.0",
+    "restify": "^6.3.4",
+    "restify-plugins": "^1.6.0",
+    "serve-favicon": "~2.4.5",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.2"
+  }
 }

@@ -33,6 +33,10 @@ class Item {
 			});
 		});
 	};
+	// need to authenticate this method
+	static updateDocument() {
+	
+	}
 }
 
 module.exports = Item;

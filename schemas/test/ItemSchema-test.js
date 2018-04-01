@@ -6,14 +6,9 @@ let chai = require('chai');
 let expect = chai.expect;
 let dbConfig = require('../../db.config');
 let uri = dbConfig.mongoConfigs.db.uri;
-// Create a new schema that accepts a 'name' object.
 const ItemSchema = require('../../schemas/itemSchema');
-//Create a new collection called 'ItemModel'
-const ItemModel = mongoose.model('Item', ItemSchema);
 
 describe('Test Item Schema', function() {
-	//Before starting the test, create a sandboxed database connection
-	//Once a connection is established invoke done()
 	before(function (done) {
 		mongoose.connect(uri + 'testDatabase');
 		const db = mongoose.connection;
@@ -24,9 +19,8 @@ describe('Test Item Schema', function() {
 	});
 	
 	describe('Schema - Item actions', function() {
-		//Save object with required params
 		it('Should save Item to DB', function(done) {
-			let testItem = ItemModel({
+			let testItem = ItemSchema({
 				item: 'journal',
 				qty: 25,
 				status: 'A',
@@ -40,17 +34,15 @@ describe('Test Item Schema', function() {
 		});
 		
 		it('Should NOT save Item to DB', function(done) {
-			//Attempt to save with wrong info. An error should trigger
-			let wrongSave = ItemModel({ notName: 'Ryder' });
+			let wrongSave = ItemSchema({ notName: 'Ryder' });
 			wrongSave.save(err => {
 				if(err) { return done(); }
 				throw new Error('Should generate error!');
 			});
 		});
 		
-		// @note: might not need this test in here.
 		it('Should find Item from DB', function(done) {
-			ItemModel.find({ item: 'journal'}, (err, resp) => {
+			ItemSchema.find({ item: 'journal'}, (err, resp) => {
 				if(err) {throw err;}
 				if(resp.length === 0) {throw new Error('No data!');}
 				setTimeout(function(){
@@ -62,7 +54,6 @@ describe('Test Item Schema', function() {
 		});
 	});
 	
-	//After all tests are finished drop database and close connection
 	after(function(done){
 		mongoose.connection.db.dropDatabase(function(){
 			mongoose.connection.close(done);

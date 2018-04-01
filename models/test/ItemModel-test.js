@@ -15,7 +15,6 @@ describe('Test Item Model', function() {
 			});
 		});
 		it('Should get document by item type', function(done) {
-			let data = {type: 'item', val: 'journal'};
 			itemModel.findDocumentByItem('journal', function(err, resp) {
 				if(err) throw new Error(err);
 				expect(resp.item).to.equal('journal');
