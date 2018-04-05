@@ -12,6 +12,10 @@ let UserSchema = new mongoose.Schema({
 		required: true,
 		trim: true
 	},
+	roles: {
+		type: Array,
+		required: true
+	},
 	password: {
 		type: String,
 		required: true,

@@ -14,12 +14,19 @@ class Item {
 			callback(err, collection);
 		});
 	}
+	static findDocuments(callback) {
+		this.mongoConnect(function(err, collection){
+			if (err) throw err;
+			collection.find({}).toArray(function(err, docs){
+				callback(err, docs);
+			});
+		});
+	};
 	static findDocument(id, callback) {
 		let oId = new mongo.ObjectID(id);
 		this.mongoConnect(function(err, collection){
 			if (err) throw err;
 			collection.findOne({_id: oId}, function(err, docs){
-				if(err) throw err;
 				callback(err, docs);
 			});
 		});
@@ -28,7 +35,6 @@ class Item {
 		this.mongoConnect(function(err, collection){
 			if (err) throw err;
 			collection.findOne({item: val}, function(err, docs){
-				if(err) throw err;
 				callback(err, docs);
 			});
 		});

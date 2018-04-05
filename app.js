@@ -5,6 +5,7 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let app = express();
+const bodyParser = require('body-parser');
 
 // assign the swig engine to .html files
 app.engine('html', cons.swig);
@@ -16,6 +17,9 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // routes
 let index = require('./routes/index');

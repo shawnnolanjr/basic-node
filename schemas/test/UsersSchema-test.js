@@ -19,23 +19,40 @@ describe('Test User Schema', function() {
 	});
 	
 	describe('Schema - User actions', function() {
-		it('Should save User to DB', function(done) {
-			let testItem = UsersSchema({
+		it('Should save new user', function(done) {
+			let testItem = {
 				email: 'test1@asdf.com',
 				username: 'test1',
 				password: 'pass01',
 				passwordConf: 'pass01'
+			};
+            UsersSchema.create(testItem, function(err, resp){
+				if(err) throw Error(err);
+				expect(resp).to.be.an.instanceOf(Object);
+				done();
 			});
-			testItem.save(done);
 		});
 		
+		it('Should NOT save user without password', function(done) {
+			let testItem = {
+				email: 'test1@asdf.com',
+				username: 'test1'
+			};
+            UsersSchema.create(testItem, function(err, resp){
+				if(!err.errors) throw Error('Password validation should NOT pass.');
+				expect(err.errors.password.path).to.equal('password');
+				expect(err.errors.password.message).to.equal('Path `password` is required.');
+				done();
+			});
+		});
+		//@Todo: change test to update password using mongoose to update a document.
 		it('Should expect passwords to match', function(done) {
-			let testItem = UsersSchema({
+			let testItem = {
 				email: 'test2@asdf.com',
 				username: 'test2',
 				password: 'pass01',
 				passwordConf: 'wrongpassword'
-			});
+			};
 			expect(testItem.password).to.not.equal(testItem.passwordConf);
 			testItem.passwordConf = 'pass01';
 			expect(testItem.password).to.equal(testItem.passwordConf);
@@ -43,8 +60,8 @@ describe('Test User Schema', function() {
 		});
 		
 		it('Should NOT save User to DB', function(done) {
-			let wrongSave = UsersSchema({ notName: 'Ryder' });
-			wrongSave.save(err => {
+			let wrongSave = { notName: 'Ryder' };
+            UsersSchema.create(wrongSave, err => {
 				if(err) { return done(); }
 				throw new Error('Should generate error!');
 			});
@@ -53,7 +70,7 @@ describe('Test User Schema', function() {
 		it('Should find User from DB', function(done) {
 			UsersSchema.find({ email: 'test1@asdf.com'}, (err, resp) => {
 				if(err) {throw err;}
-				if(resp.length === 0) {throw new Error('No data!');}
+				if(resp.length === 0) { throw new Error('No data!'); }
 				setTimeout(function(){
 					expect(resp[0]._doc.email).to.equal('test1@asdf.com');
 					expect(resp).to.be.an.instanceOf(Object);
