@@ -22,7 +22,7 @@ describe('Test User Model', function () {
         it('Should create user', function (done) {
             let user = {email: 'asdfasdf@asdf.com', password: 'pass01', passwordConf: 'pass01', username: 'asdf'};
             UserModel.CreateUser(user, function (err, resp) {
-                if(err) {throw err;}
+                if(err) { throw Error(err); }
                 expect(resp).to.be.an.instanceOf(Object);
                 done();
             });
@@ -30,6 +30,7 @@ describe('Test User Model', function () {
     });
 
     after(function(done){
+	    delete mongoose.models.UserModel;
         mongoose.connection.db.dropDatabase(dbName, function(){
             mongoose.connection.close(done);
         });

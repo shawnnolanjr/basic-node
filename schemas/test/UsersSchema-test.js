@@ -1,5 +1,4 @@
 'use strict';
-
 require('../../app');
 let mongoose = require('mongoose');
 let chai = require('chai');
@@ -81,6 +80,7 @@ describe('Test User Schema', function() {
 	});
 	
 	after(function(done){
+		delete mongoose.modelSchemas.UsersSchema;
 		mongoose.connection.db.dropDatabase(function(){
 			mongoose.connection.close(done);
 		});

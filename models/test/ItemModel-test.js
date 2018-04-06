@@ -1,25 +1,50 @@
 'use strict';
-
 require('../../app');
-let chai = require('chai');
-let expect = chai.expect;
-let itemModel = require('../ItemModel');
+const mongoose = require('mongoose');
+const chai = require('chai');
+const expect = chai.expect;
+const dbConfig = require('../../utils/db/config/db.config');
+const ItemModel = require('../ItemModel');
+let dbName = dbConfig.mongoConfigs.db.name;
 
 describe('Test Item Model', function() {
-	describe('Item model actions', function(){
-		it('Should get document by id', function(done) {
-			itemModel.findDocument('5aa776fb9ebe5905c9646d40', function(err, resp) {
-				if(err) throw new Error(err);
-				expect(resp.item).to.equal('journal');
-				done();
+	// @todo: create multiple docs.
+	describe('Should create and find documents', function() {
+		it('Create Document', function(done){
+			let data = {
+				title: 'my document',
+				body: 'my body'
+			};
+			ItemModel.CreateDocument(data, function(err, resp){
+				if(err) throw Error(err);
+				if(resp) done();
 			});
 		});
-		it('Should get document by item type', function(done) {
-			itemModel.findDocumentByItem('journal', function(err, resp) {
-				if(err) throw new Error(err);
-				expect(resp.item).to.equal('journal');
+		it('Find documents', function(done) {
+			let value = 'my document';
+			ItemModel.FindDocumentsByType({'title': value}, function(err, resp) {
+				if(err) throw Error(err);
+				expect(resp).to.be.an.instanceOf(Object);
 				done();
 			});
 		});
 	});
+	describe('Should NOT create document', function(){
+		it('Create document', function(done){
+			let data = {
+				title: 'my document'
+			};
+			ItemModel.CreateDocument(data, function(err, resp){
+				expect(err.errors).to.be.an.instanceOf(Object);
+				done();
+			});
+		});
+	});
+
+    after(function(done){
+	    delete mongoose.models.ItemModel;
+        mongoose.connection.db.dropDatabase(dbName, function(){
+            mongoose.connection.close(done);
+        });
+    });
 });
