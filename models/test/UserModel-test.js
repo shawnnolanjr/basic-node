@@ -1,23 +1,13 @@
 'use strict';
-
 require('../../app');
-let mongoose = require('mongoose');
-let chai = require('chai');
-let expect = chai.expect;
+const mongoose = require('mongoose');
+const chai = require('chai');
+const expect = chai.expect;
+const dbConfig = require('../../utils/db/config/db.config');
 const UserModel = require('../UserModel');
-let dbConfig = require('../../db.config');
-let uri = dbConfig.mongoConfigs.db.uri;
+let dbName = dbConfig.mongoConfigs.db.name;
 
 describe('Test User Model', function () {
-    before(function (done) {
-        mongoose.connect(uri + 'testDatabase');
-        const db = mongoose.connection;
-        db.on('error', console.error.bind(console, 'connection error'));
-        db.once('open', function() {
-            done();
-        });
-    });
-
     describe('Model - User actions', function () {
         it('Should NOT create user', function (done) {
             let user = {email: 'asdfasdf@asdf.com'};
@@ -28,7 +18,7 @@ describe('Test User Model', function () {
         });
     });
 
-    describe('asdf', function(){
+    describe('asdf', function () {
         it('Should create user', function (done) {
             let user = {email: 'asdfasdf@asdf.com', password: 'pass01', passwordConf: 'pass01', username: 'asdf'};
             UserModel.CreateUser(user, function (err, resp) {
@@ -40,7 +30,7 @@ describe('Test User Model', function () {
     });
 
     after(function(done){
-        mongoose.connection.db.dropDatabase(function(){
+        mongoose.connection.db.dropDatabase(dbName, function(){
             mongoose.connection.close(done);
         });
     });

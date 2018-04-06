@@ -1,11 +1,6 @@
 let express = require('express');
 let router = express.Router();
-const bodyParser = require('body-parser');
-
-router.use(bodyParser.urlencoded({
-	extended: true
-}));
-router.use(bodyParser.json());
+let UserModel = require('../models/UserModel');
 
 let foo = function (body) {
 	console.log('body', body);
@@ -17,10 +12,13 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res) {
-	console.log(req.body);
-	// sending a response does not pause the function
-	foo(req.body);
-	res.send(200);
+	let body = req.body;
+	if(typeof body === 'object') {
+		UserModel.CreateUser(body, function(err, resp){
+		    console.log('err', err);
+		    console.log('resp', resp);
+		});
+	}
 });
 
 module.exports = router;

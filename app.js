@@ -1,11 +1,11 @@
-let express = require('express');
-let cons = require('consolidate');
-let path = require('path');
-let favicon = require('serve-favicon');
-let logger = require('morgan');
-let cookieParser = require('cookie-parser');
-let app = express();
+const express = require('express');
+const cons = require('consolidate');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const app = express();
 const bodyParser = require('body-parser');
+let favicon = require('serve-favicon');
 
 // assign the swig engine to .html files
 app.engine('html', cons.swig);

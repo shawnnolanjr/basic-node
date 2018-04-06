@@ -4,7 +4,7 @@ require('../../app');
 let mongoose = require('mongoose');
 let chai = require('chai');
 let expect = chai.expect;
-let dbConfig = require('../../db.config');
+let dbConfig = require('../../utils/db/config/db.config');
 let uri = dbConfig.mongoConfigs.db.uri;
 const UsersSchema = require('../../schemas/UsersSchema');
 
