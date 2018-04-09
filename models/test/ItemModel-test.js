@@ -5,9 +5,18 @@ const chai = require('chai');
 const expect = chai.expect;
 const dbConfig = require('../../utils/db/config/db.config');
 const ItemModel = require('../ItemModel');
-let dbName = dbConfig.mongoConfigs.db.name;
+let uri = dbConfig.mongoConfigs.db.uri;
+let dbName = 'testDatabase';
 
 describe('Test Item Model', function() {
+	before(function (done) {
+		mongoose.connect(uri + dbName);
+		const db = mongoose.connection;
+		db.on('error', console.error.bind(console, 'connection error'));
+		db.once('open', function() {
+			done();
+		});
+	});
 	// @todo: create multiple docs.
 	describe('Should create and find documents', function() {
 		it('Create Document', function(done){
@@ -29,6 +38,7 @@ describe('Test Item Model', function() {
 			});
 		});
 	});
+
 	describe('Should NOT create document', function(){
 		it('Create document', function(done){
 			let data = {
@@ -42,9 +52,8 @@ describe('Test Item Model', function() {
 	});
 
     after(function(done){
-	    delete mongoose.models.ItemModel;
-        mongoose.connection.db.dropDatabase(dbName, function(){
+	    mongoose.connection.db.dropDatabase(function(){
             mongoose.connection.close(done);
-        });
+	    });
     });
 });

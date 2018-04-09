@@ -17,6 +17,9 @@ router.post('/', function (req, res) {
 		UserModel.CreateUser(body, function(err, resp){
 		    console.log('err', err);
 		    console.log('resp', resp);
+		    if(resp) {
+		    	res.redirect('/users');
+		    }
 		});
 	}
 });

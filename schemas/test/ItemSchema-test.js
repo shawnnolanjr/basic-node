@@ -6,11 +6,11 @@ const expect = chai.expect;
 const dbConfig = require('../../utils/db/config/db.config');
 const ItemSchema = require('../ItemSchema');
 let uri = dbConfig.mongoConfigs.db.uri;
-let dbName = dbConfig.mongoConfigs.db.name;
+let dbName = 'testDatabase';
 
 describe('Test Item Schema', function() {
 	before(function (done) {
-		mongoose.connect(uri + 'testDatabase');
+		mongoose.connect(uri + dbName);
 		const db = mongoose.connection;
 		db.on('error', console.error.bind(console, 'connection error'));
 		db.once('open', function() {
@@ -54,8 +54,8 @@ describe('Test Item Schema', function() {
 	});
 	
 	after(function(done){
-		delete mongoose.modelSchemas.ItemSchema;
-		mongoose.connection.db.dropDatabase(dbName, function(){
+		// delete mongoose.modelSchemas.ItemSchema;
+		mongoose.connection.db.dropDatabase(function(){
 			mongoose.connection.close(done);
 		});
 	});

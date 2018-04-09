@@ -12,6 +12,15 @@ class Item {
 		});
 	};
 
+	static FindAllDocuments(callback) {
+		DbConnect.mongoConnect(function(){
+			ItemSchema.find(function(err, resp){
+				console.log('resp', resp);
+				callback(err, resp);
+			});
+		});
+	}
+
 	static FindDocumentsByType(data, callback) {
 		DbConnect.mongoConnect(function(){
 			ItemSchema.find(data, function(err, resp){
