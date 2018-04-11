@@ -1,6 +1,6 @@
-let express = require('express');
-let router = express.Router();
-let UserModel = require('../models/UserModel');
+const express = require('express');
+const router = express.Router();
+const UserModel = require('../models/UserModel');
 
 /* GET users view. */
 router.get('/', function (req, res, next) {
