@@ -5,6 +5,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const dbConfig = require('../../utils/db/config/db.config');
 const ItemSchema = require('../ItemSchema');
+const strings = require('../../utils/content/strings');
 let uri = dbConfig.mongoConfigs.db.uri;
 let dbName = 'testDatabase';
 
@@ -18,11 +19,14 @@ describe('Test Item Schema', function() {
 		});
 	});
 
-	describe('one', function(){
+	describe('Saving documents to DB', function(){
 		it('Should save Item to DB', function(done) {
+			let title = 'some title';
+			let safeUrl = strings.convertTitlesToUrls(title);
 			let testItem = {
-				title: 'some title',
-				body: 'some body'
+				title: title,
+				body: 'some body',
+				url: safeUrl
 			};
 			ItemSchema.create(testItem, function(err, resp){
 				if(err) throw Error(err);
@@ -42,7 +46,7 @@ describe('Test Item Schema', function() {
 		});
 	});
 	
-	describe('Schema - Item actions', function() {
+	describe('Should validate saving to DB', function() {
 		it('Should NOT save Item to DB', function(done) {
 			let item = ItemSchema({ notName: 'Ryder' });
 			ItemSchema.create(item, function(err, resp){

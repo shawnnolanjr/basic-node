@@ -16,6 +16,10 @@ const ItemSchema = new mongoose.Schema({
 	tags: {
 		type: Array,
 		required: true
+	},
+	url: {
+		type: String,
+		required: true
 	}
 });
 const Item = mongoose.model('Item', ItemSchema);

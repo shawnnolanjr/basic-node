@@ -14,16 +14,18 @@ class Item {
 
 	static FindAllDocuments(callback) {
 		DbConnect.mongoConnect(function(){
-			ItemSchema.find(function(err, resp){
-				console.log('resp', resp);
-				callback(err, resp);
+			ItemSchema.find({}, function(err, items) {
+				items.reduce(function(itemMap, item){
+					return item._doc;
+				});
+				callback(err, items);
 			});
 		});
 	}
 
 	static FindDocumentsByType(data, callback) {
 		DbConnect.mongoConnect(function(){
-			ItemSchema.find(data, function(err, resp){
+			ItemSchema.findOne(data, function(err, resp){
 				callback(err, resp);
 			});
 		});

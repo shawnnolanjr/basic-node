@@ -1,6 +1,14 @@
 <%- include header.ejs %>
 <h1>The item</h1>
-<% if(result) { %>
-	<%= (result.item) ? result.item : result %>
-<% } %>
+<div class="col-md-12">
+    <% if(result) { %>
+    <div class="col-md-6">
+        <%= result.title %>
+    </div>
+    <div class="col-md-6">
+        <%= result.body %>
+    </div>
+    <% } %>
+</div>
+
 <%- include footer.ejs %>

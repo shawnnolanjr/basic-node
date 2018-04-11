@@ -5,6 +5,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const dbConfig = require('../../utils/db/config/db.config');
 const ItemModel = require('../ItemModel');
+const strings = require('../../utils/content/strings');
 let uri = dbConfig.mongoConfigs.db.uri;
 let dbName = 'testDatabase';
 
@@ -20,9 +21,12 @@ describe('Test Item Model', function() {
 	// @todo: create multiple docs.
 	describe('Should create and find documents', function() {
 		it('Create Document', function(done){
+			let title = 'my document';
+			let safeUrl = strings.convertTitlesToUrls(title);
 			let data = {
-				title: 'my document',
-				body: 'my body'
+				title: title,
+				body: 'my body',
+				url: safeUrl
 			};
 			ItemModel.CreateDocument(data, function(err, resp){
 				if(err) throw Error(err);
