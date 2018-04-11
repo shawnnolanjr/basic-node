@@ -1,9 +1,14 @@
 <%- include header.ejs %>
 <div class="col-md-6 col-md-offset-3">
-    <% if(err) { %>
+    <% if(error) { %>
         <div class="alert alert-danger" role="alert">
-            <%- err %>
+            <%- error %>
         </div>
+    <% } %>
+    <% if(success) { %>
+    <div class="alert alert-success" role="alert">
+        <%- success %>
+    </div>
     <% } %>
     <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
