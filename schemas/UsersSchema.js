@@ -21,10 +21,14 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	passwordConf: {
-		type: String,
-		required: true,
-	}
+	// @todo: might not need this, since this is adding it to the db...
+	// passwordConf: {
+	// 	type: String,
+	// 	required: function() {
+	// 		return this.password === this.passwordConf;
+	// 	},
+	// }
+	// @todo: create a CreatedDate type
 });
 const User = mongoose.model('User', UserSchema);
 

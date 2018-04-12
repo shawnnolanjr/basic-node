@@ -6,23 +6,21 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
-let favicon = require('serve-favicon');
+// let favicon = require('serve-favicon');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(session({secret: 'someSecret', resave: false, saveUninitialized: false}));
+app.use(logger('dev'));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // assign the swig engine to .html files
 app.engine('html', cons.swig);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 // routes
 let index = require('./routes/index');
 let items = require('./routes/items');
