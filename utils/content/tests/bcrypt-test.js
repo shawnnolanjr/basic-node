@@ -15,7 +15,8 @@ describe('Test Password Encryption', function() {
 		});
 		it('Should decrypt password', function(done) {
 			let someStr = 'somepassword';
-			let safeUrl = bcrypt.decryptPassword(someStr);
+			let hash = bcrypt.encryptPassword(someStr);
+			let safeUrl = bcrypt.decryptPassword(someStr,hash);
 			expect(true).to.equal(safeUrl);
 			done();
 		});

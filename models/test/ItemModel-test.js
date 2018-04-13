@@ -35,7 +35,7 @@ describe('Test Item Model', function() {
 		});
 		it('Find documents', function(done) {
 			let value = 'my document';
-			ItemModel.FindDocumentsByType({'title': value}, function(err, resp) {
+			ItemModel.FindDocumentsByType({title: value}, function(err, resp) {
 				if(err) throw Error(err);
 				expect(resp).to.be.an.instanceOf(Object);
 				done();

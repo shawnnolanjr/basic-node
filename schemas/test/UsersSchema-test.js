@@ -69,15 +69,23 @@ describe('Test User Schema', function() {
 			});
 		});
 		
-		it('Should find User from DB', function(done) {
+		it('Should find User by email', function(done) {
 			UsersSchema.find({ email: 'test1@asdf.com'}, (err, resp) => {
 				if(err) {throw err;}
 				if(resp.length === 0) { throw new Error('No data!'); }
-				setTimeout(function(){
-					expect(resp[0]._doc.email).to.equal('test1@asdf.com');
-					expect(resp).to.be.an.instanceOf(Object);
-					done();
-				});
+				expect(resp[0]._doc.email).to.equal('test1@asdf.com');
+				expect(resp).to.be.an.instanceOf(Object);
+				done();
+			});
+		});
+
+		it('Should find User by username', function(done) {
+			UsersSchema.find({ username: 'test1'}, (err, resp) => {
+				if(err) {throw err;}
+				if(resp.length === 0) { throw new Error('No data!'); }
+				expect(resp[0]._doc.email).to.equal('test1@asdf.com');
+				expect(resp).to.be.an.instanceOf(Object);
+				done();
 			});
 		});
 	});

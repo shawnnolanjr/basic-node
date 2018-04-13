@@ -3,6 +3,7 @@ require('../../app');
 const mongoose = require('mongoose');
 const chai = require('chai');
 const expect = chai.expect;
+const assert = chai.assert;
 const dbConfig = require('../../utils/db/config/db.config');
 const UserModel = require('../UserModel');
 const bcrypt = require('../../utils/content/bcrypt');
@@ -19,22 +20,52 @@ describe('Test User Model', function () {
 		});
 	});
 
-	describe('Model - User actions', function () {
+	describe('Model - Create user actions', function () {
 		it('Should NOT create user', function (done) {
 			let user = {email: 'asdfasdf@asdf.com'};
-			UserModel.CreateUser(user, function (err, resp) {
+			UserModel.CreateUser(user, (err, resp) => {
 				expect(err.errors).to.be.an.instanceOf(Object);
+				assert.isNotObject(resp);
 				done();
 			});
 		});
 
 		it('Should create user', function (done) {
 			let pword = 'pass01';
-			let encryptedPword = bcrypt.encryptPassword(pword);
-			let user = {email: 'asdfasdf@asdf.com', password: encryptedPword, username: 'asdf', createdDate: new Date()};
-			UserModel.CreateUser(user, function (err, resp) {
+			let user = {email: 'asdf@asdf.com', password: bcrypt.encryptPassword(pword), username: 'asdf', createdDate: new Date()};
+			UserModel.CreateUser(user, (err, resp) => {
 				if (err) throw Error(err);
 				expect(resp).to.be.an.instanceOf(Object);
+				assert.isNotObject(err);
+				done();
+			});
+		});
+	});
+
+	describe('Model - Login user actions', function(){
+		it('Should log user in with correct password', function(done){
+			let userData = { username: 'asdf', password: 'pass01' };
+			UserModel.Login(userData, (err, resp) => {
+				expect(resp._doc.username).to.equal(userData.username);
+				assert.isObject(resp);
+				done();
+			});
+		});
+
+		it('Should fail login with incorrect password', function(done){
+			let userData = { username: 'asdf', password: 'asdfasdf' };
+			UserModel.Login(userData, (err, resp) => {
+				expect(err).to.equal('incorrect password');
+				assert.isNotObject(resp);
+				done();
+			});
+		});
+
+		it('Should fail login with incorrect username', function(done){
+			let userData = { username: 'asdfasdf', password: 'pass01' };
+			UserModel.Login(userData, (err, resp) => {
+				expect(err).to.equal('No Response');
+				assert.isNotObject(resp);
 				done();
 			});
 		});
