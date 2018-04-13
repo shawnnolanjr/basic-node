@@ -1,11 +1,12 @@
 'use strict';
 require('../../app');
-let mongoose = require('mongoose');
-let chai = require('chai');
-let expect = chai.expect;
-let dbConfig = require('../../utils/db/config/db.config');
-let uri = dbConfig.mongoConfigs.db.uri;
+const mongoose = require('mongoose');
+const chai = require('chai');
+const expect = chai.expect;
+const dbConfig = require('../../utils/db/config/db.config');
 const UsersSchema = require('../../schemas/UsersSchema');
+const bcrypt = require('../../utils/content/bcrypt');
+let uri = dbConfig.mongoConfigs.db.uri;
 let dbName = 'testDatabase';
 
 describe('Test User Schema', function() {
@@ -23,8 +24,8 @@ describe('Test User Schema', function() {
 			let testItem = {
 				email: 'test1@asdf.com',
 				username: 'test1',
-				password: 'pass01',
-				passwordConf: 'pass01'
+				password: bcrypt.encryptPassword('pass01'),
+				createdDate: new Date()
 			};
             UsersSchema.create(testItem, function(err, resp){
 				if(err) throw Error(err);
@@ -45,7 +46,8 @@ describe('Test User Schema', function() {
 				done();
 			});
 		});
-		//@Todo: change test to update password using mongoose to update a document.
+		// @Todo: change test to update password using mongoose to update a document.
+		// @note: might not need this test.
 		it('Should expect passwords to match', function(done) {
 			let testItem = {
 				email: 'test2@asdf.com',
@@ -81,7 +83,6 @@ describe('Test User Schema', function() {
 	});
 	
 	after(function(done){
-		// delete mongoose.modelSchemas.UsersSchema;
 		mongoose.connection.db.dropDatabase(function(){
 			mongoose.connection.close(done);
 		});

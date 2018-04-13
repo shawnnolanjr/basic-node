@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
+		// @todo: need change "required" to a function that should validate for certain type of passwords.
 		required: true,
 	},
 	// @todo: might not need this, since this is adding it to the db...
@@ -29,6 +30,10 @@ const UserSchema = new mongoose.Schema({
 	// 	},
 	// }
 	// @todo: create a CreatedDate type
+	createdDate: {
+		type: Date,
+		required: true
+	}
 });
 const User = mongoose.model('User', UserSchema);
 
