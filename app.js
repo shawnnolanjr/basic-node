@@ -21,20 +21,23 @@ app.use(bodyParser.json());
 app.engine('html', cons.swig);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// routes
+// Routers
+let userRouter = express.Router({});
+// controllers
 let index = require('./routes/index');
 let items = require('./routes/items');
 let item = require('./routes/item');
 let users = require('./routes/users');
 let userRegister = require('./routes/userRegister');
-// let userLogin = require('./routes/userLogin');
+let userLogin = require('./routes/userLogin');
+// basic site routes
 app.use('/', index);
 app.use('/items', items);
 app.use('/item', item);
 app.use('/users', users);
-let userRouter = express.Router({});
-// userRouter.post('/login', userLogin);
+// user api related routes
 userRouter.post('/register', userRegister);
+userRouter.post('/login', userLogin);
 app.use('/api/v1', userRouter);
 
 // catch 404 and forward to error handler
