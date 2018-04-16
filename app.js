@@ -26,10 +26,16 @@ let index = require('./routes/index');
 let items = require('./routes/items');
 let item = require('./routes/item');
 let users = require('./routes/users');
+let userRegister = require('./routes/userRegister');
+// let userLogin = require('./routes/userLogin');
 app.use('/', index);
 app.use('/items', items);
 app.use('/item', item);
 app.use('/users', users);
+let userRouter = express.Router({});
+// userRouter.post('/login', userLogin);
+userRouter.post('/register', userRegister);
+app.use('/api/v1', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -47,6 +53,7 @@ app.use(function (err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	res.render('error');
+	next();
 });
 
 module.exports = app;

@@ -18,38 +18,45 @@
 
     <div class="tab-content">
         <div id="register" class="tab-pane fade in active">
-            <form class="form-signin" method="post">
-                <h2 class="form-signin-heading">Please sign in</h2>
-                <div class="form-group">
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required
-                           autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="username" class="sr-only">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" value="<%- (user && user.username) ? user.username : '' %>" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="passwordConf" class="sr-only">Password Confirm</label>
-                    <input type="password" id="passwordConf" name="passwordConf" class="form-control" required>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
+            <%- include partials/register.ejs %>
         </div>
         <div id="login" class="tab-pane fade">
-            <h3>Login</h3>
-            <p>Login form?</p>
+            <%- include partials/login.ejs %>
         </div>
     </div>
 </div>
-
 <%- include footer.ejs %>
+<script type="application/javascript">
+	(function($){
+		let $loginForm = $('form#loginForm');
+		let $registerForm = $('form#registerForm');
+		let $btn = $('.btn');
+        $btn.on('click', function(e){
+			e.preventDefault();
+			if(this.id === 'loginBtn') {
+				let postLogin = $.post('/api/v1/login', $loginForm.serialize());
+				postLogin
+					.done(function(data) {
+						console.log('done', data);
+						return data;
+					})
+					.fail(function(err) {
+						console.log('fail', err);
+						return err;
+					});
+            }
+	        if(this.id === 'registerBtn') {
+		        let postLogin = $.post('/api/v1/register', $registerForm.serialize());
+		        postLogin
+			        .done(function(data) {
+				        console.log('done', data);
+				        return data;
+			        })
+			        .fail(function(err) {
+				        console.log('fail', err);
+				        return err;
+			        });
+	        }
+        });
+	})(jQuery);
+</script>

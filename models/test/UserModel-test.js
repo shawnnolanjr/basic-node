@@ -33,10 +33,8 @@ describe('Test User Model', function () {
 		it('Should create user', function (done) {
 			let pword = 'pass01';
 			let user = {email: 'asdf@asdf.com', password: bcrypt.encryptPassword(pword), username: 'asdf', createdDate: new Date()};
-			UserModel.CreateUser(user, (err, resp) => {
-				if (err) throw Error(err);
-				expect(resp).to.be.an.instanceOf(Object);
-				assert.isNotObject(err);
+			UserModel.CreateUser(user, (data) => {
+				expect(data).to.be.an.instanceOf(Object);
 				done();
 			});
 		});

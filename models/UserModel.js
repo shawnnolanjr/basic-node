@@ -5,9 +5,14 @@ let compare, password;
 class UserModel {
 	static CreateUser(data, callback) {
         DbConnect.mongoConnect(function(){
-            UserSchema.create(data, function(err, resp){
-                callback(err, resp);
-            });
+        	let userSchema = UserSchema.create(data);
+	        userSchema
+		        .then(function (data) {
+		        	callback(data);
+		        })
+		        .catch(function (err) {
+		        	callback(err);
+		        });
         });
 	};
 
@@ -27,7 +32,7 @@ class UserModel {
 					err = 'incorrect password';
 					resp = null;
 				}
-				callback(err, resp);
+				return callback(err, resp);
 			});
 		});
 	};

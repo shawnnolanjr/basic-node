@@ -10,10 +10,10 @@ class DbConnect {
 			db.on('error', console.error.bind(console, 'connection error'));
 			db.once('open', function (err, resp) {
 				if (err) throw Error(err);
-				callback();
+				return callback();
 			});
 		}
-		callback();
+		return callback();
 	}
 }
 module.exports = DbConnect;
