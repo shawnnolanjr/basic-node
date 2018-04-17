@@ -9,8 +9,16 @@ const session = require('express-session');
 // let favicon = require('serve-favicon');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
-app.use(session({secret: 'someSecret', resave: false, saveUninitialized: false}));
+let dateNow = Date.now() + 3600000;
+app.use(session({
+	secret: 'someSecret',
+	resave: false,
+	saveUninitialized: false,
+	cookie: {
+		// secure: true,
+		expires: new Date(dateNow)
+	}
+}));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,12 +38,15 @@ let item = require('./routes/item');
 let users = require('./routes/users');
 let userRegister = require('./routes/userRegister');
 let userLogin = require('./routes/userLogin');
+let dashboard = require('./routes/dashboard');
 // basic site routes
 app.use('/', index);
 app.use('/items', items);
 app.use('/item', item);
 app.use('/users', users);
+app.use('/dashboard', dashboard);
 // user api related routes
+// userRouter.get('/users', users);
 userRouter.post('/register', userRegister);
 userRouter.post('/login', userLogin);
 app.use('/api/v1', userRouter);

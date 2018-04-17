@@ -7,7 +7,7 @@ class Item {
 		// @todo: need to encrypt password
 		DbConnect.mongoConnect(function(){
 			ItemSchema.create(data, function(err, resp){
-				callback(err, resp);
+				return callback(err, resp);
 			});
 		});
 	};
@@ -18,7 +18,7 @@ class Item {
 				items.reduce(function(itemMap, item){
 					return item._doc;
 				});
-				callback(err, items);
+				return callback(err, items);
 			});
 		});
 	}
@@ -26,7 +26,7 @@ class Item {
 	static FindDocumentsByType(data, callback) {
 		DbConnect.mongoConnect(function(){
 			ItemSchema.findOne(data, function(err, resp){
-				callback(err, resp);
+				return callback(err, resp);
 			});
 		});
 	}

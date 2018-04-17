@@ -27,36 +27,36 @@
 </div>
 <%- include footer.ejs %>
 <script type="application/javascript">
-	(function($){
-		let $loginForm = $('form#loginForm');
-		let $registerForm = $('form#registerForm');
-		let $btn = $('.btn');
-        $btn.on('click', function(e){
+	(function ($) {
+		let $loginForm = $('form#loginForm'),
+			$registerForm = $('form#registerForm'),
+			$btn = $('.btn');
+		$btn.on('click', function (e) {
 			e.preventDefault();
-			if(this.id === 'loginBtn') {
+			if (this.id === 'loginBtn') {
 				let postLogin = $.post('/api/v1/login', $loginForm.serialize());
 				postLogin
-					.done(function(data) {
+					.done(function (data) {
 						console.log('done', data);
-						return data;
+						window.location.href = data.redirect;
 					})
-					.fail(function(err) {
+					.fail(function (err) {
 						console.log('fail', err);
 						return err;
 					});
-            }
-	        if(this.id === 'registerBtn') {
-		        let postLogin = $.post('/api/v1/register', $registerForm.serialize());
-		        postLogin
-			        .done(function(data) {
-				        console.log('done', data);
-				        return data;
-			        })
-			        .fail(function(err) {
-				        console.log('fail', err);
-				        return err;
-			        });
-	        }
-        });
+			}
+			if (this.id === 'registerBtn') {
+				let postLogin = $.post('/api/v1/register', $registerForm.serialize());
+				postLogin
+					.done(function (data) {
+						console.log('done', data);
+						return data;
+					})
+					.fail(function (err) {
+						console.log('fail', err);
+						return err;
+					});
+			}
+		});
 	})(jQuery);
 </script>

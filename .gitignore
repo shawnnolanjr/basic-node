@@ -1,6 +1,4 @@
 /node_modules
 db.config.js
 demo_create_mongo_db.js
-mongodb.config.js
 views/*.jade
-routes/mongodb.js

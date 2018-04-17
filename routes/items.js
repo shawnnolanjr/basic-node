@@ -1,9 +1,7 @@
-let express = require('express');
-let router = express.Router();
-let ItemModel = require('../models/ItemModel');
-
-/* GET items. */
-router.get('/', function (req, res, next) {
+const express = require('express');
+const router = express.Router({});
+const ItemModel = require('../models/ItemModel');
+router.get('/', function (req, res) {
 	ItemModel.FindAllDocuments(function(err, resp) {
 		if(err) throw err;
 		resp = (resp) ? resp : 'No inventory';

@@ -1,8 +1,6 @@
 let express = require('express');
-let router = express.Router();
+let router = express.Router({});
 let ItemModel = require('../models/ItemModel');
-
-/* GET ItemModel data. */
 router.get('/:name', function (req, res) {
 	let data = {_id: req.query.id};
 	ItemModel.FindDocumentsByType(data, function(err, resp) {
@@ -11,5 +9,4 @@ router.get('/:name', function (req, res) {
 		res.render('item', { result: resp });
 	});
 });
-
 module.exports = router;
