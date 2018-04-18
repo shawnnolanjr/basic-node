@@ -19,4 +19,13 @@ describe('Test Content Strings', function() {
 			done();
 		});
 	});
+	describe('Should convert to uppercase', function(){
+		it('Should convert each word in string to uppercase', function(done) {
+			let someStr = 'this is my test string';
+			let safeUrl = strings.convertCase(someStr);
+			expect(safeUrl).to.equal('This Is My Test String');
+			expect(safeUrl).to.not.equal('this is my test string');
+			done();
+		});
+	});
 });

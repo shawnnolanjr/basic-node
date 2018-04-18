@@ -1,4 +1,4 @@
 <%- include header.ejs %>
-<h1><%- header1 %></h1>
-<p><%- desc %></p>
+<h1><%= (typeof header1 !== 'undefined') ? header1 : 'No default header' %></h1>
+<p><%= (typeof desc !== 'undefined') ? desc : 'No default desc' %></p>
 <%- include footer.ejs %>
