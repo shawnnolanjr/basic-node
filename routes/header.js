@@ -1,10 +1,7 @@
-let express = require('express');
-let router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
+const express = require('express');
+const router = express.Router({});
+router.get('/', function(req, res) {
 	console.log('req', req);
-	res.render('header', { title: 'this is my title'});
+	return res.render('header', { brand: 'Nodejs'});
 });
-
 module.exports = router;
