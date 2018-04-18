@@ -1,7 +1,7 @@
 <%- include header.ejs %>
 <div class="col-md-12">
     <div class="col-md-3">
-        <h1>welcome <%= (user && user.username) ? user.username : '' %>!</h1>
+        <h1>welcome <%= (typeof user !== 'undefined' && user.username) ? user.username : '' %>!</h1>
         <p>You have the following roles:</p>
         <ul>
             <% user.roles.forEach(function(role) { %>

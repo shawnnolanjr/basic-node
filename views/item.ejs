@@ -1,13 +1,12 @@
 <%- include header.ejs %>
-<h1>The item</h1>
 <div class="col-md-12">
     <% if(result) { %>
     <div class="col-md-6">
-        <%= result.title %>
+        <h1><%= result.title %></h1>
+        <p><%= result.body %></p>
     </div>
-    <div class="col-md-6">
-        <%= result.body %>
-    </div>
+    <% } else { %>
+        <p>No item.</p>
     <% } %>
 </div>
 <%- include footer.ejs %>

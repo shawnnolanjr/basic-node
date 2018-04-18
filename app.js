@@ -9,14 +9,13 @@ const session = require('express-session');
 // let favicon = require('serve-favicon');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-let dateNow = Date.now() + 3600000;
 app.use(session({
 	secret: 'someSecret',
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
 		// secure: true,
-		expires: new Date(dateNow)
+		expires: new Date(Date.now())
 	}
 }));
 app.use(logger('dev'));
@@ -24,7 +23,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 // assign the swig engine to .html files
 app.engine('html', cons.swig);
 app.set('views', path.join(__dirname, 'views'));
@@ -46,7 +44,6 @@ app.use('/item', item);
 app.use('/users', users);
 app.use('/dashboard', dashboard);
 // user api related routes
-// userRouter.get('/users', users);
 userRouter.post('/register', userRegister);
 userRouter.post('/login', userLogin);
 app.use('/api/v1', userRouter);

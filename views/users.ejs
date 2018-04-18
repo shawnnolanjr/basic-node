@@ -1,15 +1,6 @@
 <%- include header.ejs %>
 <div class="col-md-6 col-md-offset-3">
-    <% if(error) { %>
-    <div class="alert alert-danger" role="alert">
-        <%- error %>
-    </div>
-    <% } %>
-    <% if(success) { %>
-    <div class="alert alert-success" role="alert">
-        <%- success %>
-    </div>
-    <% } %>
+    <div class="alert alert-danger error error-msg none"></div>
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#register">Register</a></li>
@@ -30,7 +21,8 @@
 	(function ($) {
 		let $loginForm = $('form#loginForm'),
 			$registerForm = $('form#registerForm'),
-			$btn = $('.btn');
+			$btn = $('.btn'),
+            $errMsg = $('.error-msg');
 		$btn.on('click', function (e) {
 			e.preventDefault();
 			if (this.id === 'loginBtn') {
@@ -50,6 +42,14 @@
 				postLogin
 					.done(function (data) {
 						console.log('done', data);
+						if(data.err) {
+							$errMsg
+								.removeClass('none')
+								.text(data.err);
+                        } else {
+							$errMsg
+								.addClass('none');
+                        }
 						return data;
 					})
 					.fail(function (err) {

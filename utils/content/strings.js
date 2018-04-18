@@ -6,4 +6,10 @@ app.convertTitlesToUrls = function(value){
 		.replace(/ /g,'-')
 		.replace(/[^\w-]+/g,'');
 };
+app.convertCase = function(str) {
+	let lower = String(str).toLowerCase();
+	return lower.replace(/(^| )(\w)/g, function(x) {
+		return x.toUpperCase();
+	});
+}
 module.exports = app;
