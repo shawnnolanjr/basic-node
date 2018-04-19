@@ -1,4 +1,2 @@
 /node_modules
-db.config.js
-demo_create_mongo_db.js
-views/*.jade
+/utils/db/config/db.config.js
