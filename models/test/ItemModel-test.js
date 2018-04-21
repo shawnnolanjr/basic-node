@@ -33,11 +33,17 @@ describe('Test Item Model', function() {
 				if(resp) done();
 			});
 		});
-		it('Find documents', function(done) {
+		it('Find document by type', function(done) {
 			let value = 'my document';
 			ItemModel.FindDocumentsByType({title: value}, function(err, resp) {
 				if(err) throw Error(err);
 				expect(resp).to.be.an.instanceOf(Object);
+				done();
+			});
+		});
+		it('Find all documents', function(done) {
+			ItemModel.FindAllDocuments((resp) => {
+				expect(resp).to.have.lengthOf(1);
 				done();
 			});
 		});
