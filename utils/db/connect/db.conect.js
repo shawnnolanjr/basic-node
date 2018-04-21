@@ -10,7 +10,7 @@ class DbConnect {
 			db.on('error', console.error.bind(console, 'connection error'));
 			db.once('open', function (err, resp) {
 				if (err) throw Error(err);
-				return callback();
+				return callback(resp);
 			});
 		}
 		return callback();

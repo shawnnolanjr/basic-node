@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const dbConfig = require('./utils/db/connect/db.conect');
+dbConfig.mongoConnect(function(){});
 // let favicon = require('serve-favicon');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -37,12 +39,14 @@ let users = require('./routes/users');
 let userRegister = require('./routes/userRegister');
 let userLogin = require('./routes/userLogin');
 let dashboard = require('./routes/dashboard');
+let passwords = require('./routes/passwords');
 // basic site routes
 app.use('/', index);
 app.use('/items', items);
 app.use('/item', item);
 app.use('/users', users);
 app.use('/dashboard', dashboard);
+app.use('/passwords', passwords);
 // user api related routes
 userRouter.post('/register', userRegister);
 userRouter.post('/login', userLogin);
