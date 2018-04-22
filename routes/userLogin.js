@@ -6,7 +6,7 @@ router.post('/login', function (req, res) {
 	if(body.username && body.password) {
 		UserModel.Login(body, function(data){
 			if(data === 'No Response') {
-				res.json({redirect: '/users', data: false})
+				res.json({data: data})
 			}
 			let dateNow = Date.now() + 60000;
 			req.session.user = data;

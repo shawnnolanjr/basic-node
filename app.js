@@ -38,6 +38,7 @@ let item = require('./routes/item');
 let users = require('./routes/users');
 let userRegister = require('./routes/userRegister');
 let userLogin = require('./routes/userLogin');
+let userLogout = require('./routes/userLogout');
 let dashboard = require('./routes/dashboard');
 let passwords = require('./routes/passwords');
 // basic site routes
@@ -47,6 +48,7 @@ app.use('/item', item);
 app.use('/users', users);
 app.use('/dashboard', dashboard);
 app.use('/passwords', passwords);
+app.use('/logout', userLogout);
 // user api related routes
 userRouter.post('/register', userRegister);
 userRouter.post('/login', userLogin);
