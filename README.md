@@ -1,5 +1,5 @@
 # basic-node
-This is just a test place to play around with Nodejs, Express, EJS and MongoDB.
+This is just a test place to play around with Nodejs, Express, <strike>EJS</strike> express-handlebars and MongoDB.
 
 # This project uses MongoDB for hosting data
 If you don't know much about MongoDB read up here: https://docs.mongodb.com/manual/tutorial/getting-started/
