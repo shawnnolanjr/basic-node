@@ -1,0 +1,16 @@
+{{!--
+@todo: look into below list loop
+{{#list results}}
+<a href="/item/{{url}}/?id={{_id}}" data-result-name="{{title}}">{{title}}</a>
+{{/list}}
+--}}
+<h1>Items</h1>
+{{#if results}}
+	<ul>
+		{{#each results}}
+			<li>
+				<a href="/item/{{url}}/?id={{_id}}" data-result-name="{{title}}">{{title}}</a>
+			</li>
+		{{/each}}
+	</ul>
+{{/if}}

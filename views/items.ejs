@@ -1,8 +1,0 @@
-<%- include header.ejs %>
-<h1>Items</h1>
-<% results.forEach(function(result) { %>
-	<li>
-		<a href="/item/<%= result.url %>/?id=<%= result._id %>" data-result-name="<%= result.title %>"><%- result.title %></a>
-	</li>
-<% }); %>
-<%- include footer.ejs %>
