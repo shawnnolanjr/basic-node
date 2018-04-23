@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="/stylesheets/bootstrap.min.css" crossorigin="">
+	<link rel="stylesheet" href="/stylesheets/style.css" crossorigin="">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">brand</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/">Home</a></li>
+						<li><a href="/items">Items</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+							   aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="/users">Users</a></li>
+								<li><a href="/dashboard">Dashboard</a></li>
+								<li><a href="/logout">Logout</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="col-md-12">
+			{{{body}}}
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<footer>
+				<p>footer.</p>
+			</footer>
+		</div>
+	</div>
+</div>
+
+<script src="/javascripts/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script type="application/javascript">
+	(function ($) {
+		let $loginForm = $('form#loginForm'),
+			$registerForm = $('form#registerForm'),
+			$btn = $('.btn'),
+			$errMsg = $('.error-msg');
+		$btn.on('click', function (e) {
+			e.preventDefault();
+			if (this.id === 'loginBtn') {
+				let postLogin = $.post('/api/v1/login', $loginForm.serialize());
+				postLogin
+					.done(function (data) {
+						console.log('done', data);
+						window.location.href = data.redirect;
+					})
+					.fail(function (err) {
+						console.log('fail', err);
+						return err;
+					});
+			}
+			if (this.id === 'registerBtn') {
+				let postLogin = $.post('/api/v1/register', $registerForm.serialize());
+				postLogin
+					.done(function (data) {
+						console.log('done', data);
+						if (data.err) {
+							$errMsg
+								.removeClass('none')
+								.text(data.err);
+						} else {
+							$errMsg
+								.addClass('none');
+						}
+						return data;
+					})
+					.fail(function (err) {
+						console.log('fail', err);
+						return err;
+					});
+			}
+		});
+	})(jQuery);
+</script>
+</body>
+</html>

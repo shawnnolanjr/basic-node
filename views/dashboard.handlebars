@@ -1,0 +1,15 @@
+<div class="col-md-12">
+	<div class="col-md-3">
+		{{#if user}}
+		<h1>welcome {{user.username}}!</h1>
+		{{/if}}
+		<p>You have the following roles:</p>
+		<ul>
+			{{#each user.roles}}
+			<li>
+				{{this}}
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</div>

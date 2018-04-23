@@ -3,8 +3,9 @@ const router = express.Router({});
 router.get('/', function (req, res) {
 	let user = (req.session.user) ? req.session.user : null;
 	if(!user) {
-		return res.redirect('/users');
+		res.redirect('/users');
+	} else {
+		res.render('dashboard', { user: user });
 	}
-	return res.render('dashboard', { user: user });
 });
 module.exports = router;
