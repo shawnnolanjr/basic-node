@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 // Engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine( 'handlebars', exphbs({
+app.engine( 'handlebars', exphbs.engine({
 	extname: 'handlebars',
 	defaultLayout: 'main',
 	layoutsDir: __dirname + '/views/layouts/',
@@ -78,6 +78,5 @@ app.use(function (err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	res.render('error');
-	next();
 });
 module.exports = app;

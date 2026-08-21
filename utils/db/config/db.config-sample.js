@@ -8,7 +8,7 @@ app.mongoConfigs = {
     env: env,
     port: port,
     db: {
-        uri: '',
+        uri: 'localhost:27017',
         name: env,
         collection: env
     }

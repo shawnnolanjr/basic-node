@@ -1,28 +1,30 @@
 // const mongo = require('mongodb'); // @todo: use this to find documents by id.
 const ItemSchema = require('../schemas/ItemSchema');
+
 class Item {
-	static CreateDocument(data, callback) {
-		ItemSchema.create(data, function(err, resp){
-			callback(err, resp);
-		});
-	};
+    static CreateDocument(data, callback) {
+        ItemSchema.create(data, function (err, resp) {
+            callback(err, resp);
+        }).then(() => 'Item created!');
+    };
 
-	// @todo: change FindAllDocuments async to look like FindDocumentsByType
-	static FindAllDocuments(callback) {
-		let items = ItemSchema.find();
-		items
-			.then(function(resp){
-				callback(resp);
-			})
-			.catch(function (err) {
-				callback(err);
-			});
-	}
+    // @todo: change FindAllDocuments async to look like FindDocumentsByType
+    static FindAllDocuments(callback) {
+        let items = ItemSchema.find();
+        items
+            .then(function (resp) {
+                callback(resp);
+            })
+            .catch(function (err) {
+                callback(err);
+            });
+    }
 
-	static FindDocumentsByType(data, callback) {
-		ItemSchema.findOne(data, function(err, resp){
-			callback(err, resp);
-		});
-	}
+    static FindDocumentsByType(data, callback) {
+        ItemSchema.findOne(data, function (err, resp) {
+            callback(err, resp);
+        }).then(() => 'Item with type ');
+    }
 }
+
 module.exports = Item;
